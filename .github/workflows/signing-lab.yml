@@ -1,0 +1,52 @@
+name: Commit signing lab
+run-name: '${{ inputs.credential }} / ${{ inputs.method }} / ${{ inputs.target }} / expect ${{ inputs.expect }}'
+on:
+  workflow_dispatch:
+    inputs:
+      credential:
+        type: choice
+        options: [github_token, app]
+        default: github_token
+      method:
+        type: choice
+        options: [unsigned, contents, graphql, pr, merge]
+      target:
+        type: choice
+        options: [signed, bypass, guarded]
+        default: signed
+      expect:
+        type: choice
+        options: [allow, deny]
+      pr_number:
+        description: Existing PR number (merge method only)
+        default: ''
+permissions:
+  contents: write
+concurrency:
+  group: signing-lab
+  cancel-in-progress: false
+jobs:
+  experiment:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Create repository-scoped App token
+        if: inputs.credential == 'app'
+        id: app
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3
+        with:
+          client-id: ${{ vars.LAB_APP_CLIENT_ID }}
+          private-key: ${{ secrets.LAB_APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+      - name: Run experiment and assert result
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token || github.token }}
+          LAB_CREDENTIAL: ${{ inputs.credential }}
+          LAB_METHOD: ${{ inputs.method }}
+          LAB_TARGET: ${{ inputs.target }}
+          LAB_EXPECT: ${{ inputs.expect }}
+          LAB_PR_NUMBER: ${{ inputs.pr_number }}
+        run: python3 scripts/experiment.py
