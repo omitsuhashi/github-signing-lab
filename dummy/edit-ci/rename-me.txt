@@ -1,2 +1,0 @@
-Dummy rename fixture.
-This content must survive the rename byte for byte.
