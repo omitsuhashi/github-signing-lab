@@ -5,7 +5,7 @@ on:
     inputs:
       api:
         type: choice
-        options: [contents, graphql]
+        options: [contents, contents-unprotected, graphql]
       expect_pr:
         type: choice
         options: [allow, deny]

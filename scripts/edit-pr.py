@@ -10,7 +10,7 @@ from experiment import api, command, read
 repo = os.environ['GITHUB_REPOSITORY']
 assert repo == 'omitsuhashi/github-signing-lab', 'This experiment only touches the public dummy lab'
 method = os.environ['LAB_API']
-assert method in {'contents', 'graphql'}
+assert method in {'contents', 'contents-unprotected', 'graphql'}
 expected_pr = os.environ['LAB_PR_EXPECT']
 assert expected_pr in {'allow', 'deny'}
 ci_mode = os.environ['LAB_CI_MODE']
@@ -18,6 +18,8 @@ assert ci_mode in {'event', 'dispatch'}
 base = 'lab/edit-base-20261110'
 run_id = os.environ['GITHUB_RUN_ID'] + '-' + os.environ['GITHUB_RUN_ATTEMPT']
 branch = f'lab/edit-{method}-{run_id}'
+if method == 'contents-unprotected':
+    branch = f'lab/unsigned-contents-{run_id}'
 endpoint = f'repos/{repo}'
 base_sha = read(f'{endpoint}/git/ref/heads/{base}')['object']['sha']
 evidence = dict(method=method, credential='GITHUB_TOKEN', expected_pr=expected_pr, ci_mode=ci_mode,
@@ -48,16 +50,17 @@ def file_at(name):
     return read(f'{endpoint}/contents/dummy/edit-ci/{name}?' + urlencode(dict(ref=branch)))
 
 
-def record_commit(sha):
+def record_commit(sha, signed=True):
     result = read(f'{endpoint}/commits/{sha}')
     verification = result['commit']['verification']
-    assert verification['verified'] and verification['reason'] == 'valid', verification
+    assert verification['verified'] == signed, verification
+    assert verification['reason'] == ('valid' if signed else 'unsigned'), verification
     evidence['commits'].append(dict(sha=sha, url=result['html_url'], verified=verification['verified'],
                                     reason=verification['reason'], files=result['files']))
 
 
 initial = {name: file_at(name) for name in ['config.json', 'delete-me.txt', 'rename-me.txt']}
-if method == 'contents':
+if method.startswith('contents'):
     for name, operation in [('config.json', 'PUT'), ('delete-me.txt', 'DELETE'),
                             ('renamed.txt', 'PUT'), ('rename-me.txt', 'DELETE')]:
         payload = dict(message=f'Dummy {operation} {name} {run_id}', branch=branch)
@@ -66,7 +69,7 @@ if method == 'contents':
         if name in initial:
             payload['sha'] = initial[name]['sha']
         result = json.loads(api(f'{endpoint}/contents/dummy/edit-ci/{name}', payload, method=operation).stdout)
-        record_commit(result['commit']['sha'])
+        record_commit(result['commit']['sha'], signed=not (method == 'contents-unprotected' and operation == 'DELETE'))
     stale = api(f'{endpoint}/contents/dummy/edit-ci/config.json',
                 dict(message='Dummy stale blob SHA must be rejected', branch=branch,
                      content=base64.b64encode(after['config.json']).decode(), sha=initial['config.json']['sha']),
