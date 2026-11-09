@@ -1,0 +1,45 @@
+{
+  "run": {
+    "conclusion": "success",
+    "createdAt": "2026-11-09T09:00:37Z",
+    "databaseId": 42590080941,
+    "displayTitle": "app / merge / guarded / expect allow",
+    "headSha": "1b0551f30ae167ca45a5f5aba6d207ffabbf0248",
+    "status": "completed",
+    "url": "https://github.com/omitsuhashi/github-signing-lab/actions/runs/42590080941"
+  },
+  "evidence": {
+    "run_id": "42590080941-1",
+    "credential": "app",
+    "method": "merge",
+    "target": "lab/guarded",
+    "expected": "allow",
+    "before": "afc4f108108986e6180d2e74821ee26b8d6ea422",
+    "run_url": "https://github.com/omitsuhashi/github-signing-lab/actions/runs/42590080941",
+    "pr_number": 2,
+    "pr_url": "https://github.com/omitsuhashi/github-signing-lab/pull/2",
+    "head_sha": "6352b076b70fb257ae44fafcd15e2cebe747fd93",
+    "merge_sha": "d690f55587837964e5e26d774cee04cbda5dc10f",
+    "succeeded": true,
+    "stdout": "{\"sha\":\"d690f55587837964e5e26d774cee04cbda5dc10f\",\"merged\":true,\"message\":\"Pull Request successfully merged\"}",
+    "stderr": "",
+    "attempted_sha": "6352b076b70fb257ae44fafcd15e2cebe747fd93",
+    "after": "d690f55587837964e5e26d774cee04cbda5dc10f",
+    "commit_url": "https://github.com/omitsuhashi/github-signing-lab/commit/6352b076b70fb257ae44fafcd15e2cebe747fd93",
+    "verification": {
+      "verified": false,
+      "reason": "unsigned",
+      "verified_at": null
+    },
+    "author": {
+      "name": "Signing Lab",
+      "email": "signing-lab@example.invalid",
+      "date": "2026-11-09T08:59:26Z"
+    },
+    "committer": {
+      "name": "Signing Lab",
+      "email": "signing-lab@example.invalid",
+      "date": "2026-11-09T08:59:26Z"
+    }
+  }
+}

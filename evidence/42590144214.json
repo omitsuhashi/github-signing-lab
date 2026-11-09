@@ -1,0 +1,41 @@
+{
+  "run": {
+    "conclusion": "success",
+    "createdAt": "2026-11-09T09:01:05Z",
+    "databaseId": 42590144214,
+    "displayTitle": "app / contents / signed / expect allow",
+    "headSha": "1b0551f30ae167ca45a5f5aba6d207ffabbf0248",
+    "status": "completed",
+    "url": "https://github.com/omitsuhashi/github-signing-lab/actions/runs/42590144214"
+  },
+  "evidence": {
+    "run_id": "42590144214-1",
+    "credential": "app",
+    "method": "contents",
+    "target": "lab/signed",
+    "expected": "allow",
+    "before": "7e6ccafb9c4ef006322a44cd2d419db3e8096219",
+    "run_url": "https://github.com/omitsuhashi/github-signing-lab/actions/runs/42590144214",
+    "succeeded": true,
+    "stdout": "{\"content\":{\"name\":\"42590144214-1-a.txt\",\"path\":\"dummy/42590144214-1-a.txt\",\"sha\":\"50125163e7c86e8f9eb88f633b42e3c8f78a4b1c\",\"size\":39,\"url\":\"https://api.github.com/repos/omitsuhashi/github-signing-lab/contents/dummy/42590144214-1-a.txt?ref=lab/signed\",\"html_url\":\"https://github.com/omitsuhashi/github-signing-lab/blob/lab/signed/dummy/42590144214-1-a.txt\",\"git_url\":\"https://api.github.com/repos/omitsuhashi/github-signing-lab/git/blobs/50125163e7c86e8f9eb88f633b42e3c8f78a4b1c\",\"download_url\":\"https://raw.githubusercontent.com/omitsuhashi/github-signing-lab/lab/signed/dummy/42590144214-1-a.txt\",\"type\":\"file\",\"_links\":{\"self\":\"https://api.github.com/repos/omitsuhashi/github-signing-lab/contents/dummy/42590144214-1-a.txt?ref=lab/signed\",\"git\":\"https://api.github.com/repos/omitsuhashi/github-signing-lab/git/blobs/50125163e7c86e8f9eb88f633b42e3c8f78a4b1c\",\"html\":\"https://github.com/omitsuhashi/github-signing-lab/blob/lab/signed/dummy/42590144214-1-a.txt\"}},\"commit\":{\"sha\":\"fc4b6d136785a47576d9a4c6e9b13527c9ca2a57\",\"node_id\":\"C_kwDOVn33Q9oAKGZjNGI2ZDEzNjc4NWE0NzU3NmQ5YTRjNmU5YjEzNTI3YzljYTJhNTc\",\"url\":\"https://api.github.com/repos/omitsuhashi/github-signing-lab/git/commits/fc4b6d136785a47576d9a4c6e9b13527c9ca2a57\",\"html_url\":\"https://github.com/omitsuhashi/github-signing-lab/commit/fc4b6d136785a47576d9a4c6e9b13527c9ca2a57\",\"author\":{\"name\":\"omitsuhashi-signing-lab-20261109[bot]\",\"email\":\"354365642+omitsuhashi-signing-lab-20261109[bot]@users.noreply.github.com\",\"date\":\"2026-11-09T09:01:13Z\"},\"committer\":{\"name\":\"GitHub\",\"email\":\"noreply@github.com\",\"date\":\"2026-11-09T09:01:13Z\"},\"tree\":{\"sha\":\"a644bafcf2ec89070a93b967ee2169627e8dcbec\",\"url\":\"https://api.github.com/repos/omitsuhashi/github-signing-lab/git/trees/a644bafcf2ec89070a93b967ee2169627e8dcbec\"},\"message\":\"Dummy Contents API 42590144214-1\",\"parents\":[{\"sha\":\"7e6ccafb9c4ef006322a44cd2d419db3e8096219\",\"url\":\"https://api.github.com/repos/omitsuhashi/github-signing-lab/git/commits/7e6ccafb9c4ef006322a44cd2d419db3e8096219\",\"html_url\":\"https://github.com/omitsuhashi/github-signing-lab/commit/7e6ccafb9c4ef006322a44cd2d419db3e8096219\"}],\"verification\":{\"verified\":true,\"reason\":\"valid\",\"signature\":\"-----BEGIN PGP SIGNATURE-----\\n\\nwsFcBAABCAAQBQJq8YvZCRC1aQ7uu5UhlAAALNgQAKYAqXA/amn0kkSiO4TYsxLH\\nlWVzuFwqv1A10EGsovR8rHszkXEsKufCcnqQsJg1zPun9qZN1LduQfRHQtRuYudU\\nGnxZIgQyBXK1Xt7o/jS58+dcgsJqNf8Z6H6O1exmIgjjwnekkRGjE5NwlBNxXUou\\nPoQFJcRF9a5RYcvbfAFWdMzy2276igs1UbTUSiDUdmp0RnYL3IvFUu4wZGQPxNlJ\\nTGpUqmpjU++YWYG9wf0bgC+pJCJ8KZy8cMn9PrqYXdSJJOPi//NVfqJHsmbjuGDb\\nvAJbi6eTgGj3CUcTsejAaiRAB+x7ZFyj4JBJWXr6jfaHuAfFUdn2KptyoYEQuBFm\\nLPIo6UXaJDj9uEhgCBJiR3LhBVP3zzKywC2VzNrc9OpMxkyJ079gpBjxIa0zRhN5\\nYiphOrucs1WpbfOzvXI0DTelqxxEGmOdraAuAJtFylMSS6BSRmjC4RZCbrPMzw2l\\nbXiPNj/xuf5YbTzCb8GX5xc7p8623+YP8HaW99ILxO+lrGv4TJAIuYFUSlnEoZze\\nywHs/R0e7RaIjDYdWFfkDp4jICMSFoe1nRfW1W+5LUJbbnfdMwoIuzvtbf20Zc4s\\n4DXGJi4zvM0GF8+7uMIpvEcwKAidMu5r/h09ZkmDPuVmk/wCqF1OlpRa0Dh8bGRW\\n6fOk1R0bf2E+60YbJ6SE\\n=CkLn\\n-----END PGP SIGNATURE-----\\n\",\"payload\":\"tree a644bafcf2ec89070a93b967ee2169627e8dcbec\\nparent 7e6ccafb9c4ef006322a44cd2d419db3e8096219\\nauthor omitsuhashi-signing-lab-20261109[bot] <354365642+omitsuhashi-signing-lab-20261109[bot]@users.noreply.github.com> 1794214873 +0000\\ncommitter GitHub <noreply@github.com> 1794214873 +0000\\n\\nDummy Contents API 42590144214-1\",\"verified_at\":\"2026-11-09T09:01:13Z\"}}}",
+    "stderr": "",
+    "attempted_sha": "fc4b6d136785a47576d9a4c6e9b13527c9ca2a57",
+    "after": "fc4b6d136785a47576d9a4c6e9b13527c9ca2a57",
+    "commit_url": "https://github.com/omitsuhashi/github-signing-lab/commit/fc4b6d136785a47576d9a4c6e9b13527c9ca2a57",
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "verified_at": "2026-11-09T09:01:13Z"
+    },
+    "author": {
+      "name": "omitsuhashi-signing-lab-20261109[bot]",
+      "email": "354365642+omitsuhashi-signing-lab-20261109[bot]@users.noreply.github.com",
+      "date": "2026-11-09T09:01:13Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2026-11-09T09:01:13Z"
+    }
+  }
+}

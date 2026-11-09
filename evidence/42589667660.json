@@ -1,0 +1,41 @@
+{
+  "run": {
+    "conclusion": "success",
+    "createdAt": "2026-11-09T08:57:10Z",
+    "databaseId": 42589667660,
+    "displayTitle": "app / unsigned / bypass / expect allow",
+    "headSha": "1b0551f30ae167ca45a5f5aba6d207ffabbf0248",
+    "status": "completed",
+    "url": "https://github.com/omitsuhashi/github-signing-lab/actions/runs/42589667660"
+  },
+  "evidence": {
+    "run_id": "42589667660-1",
+    "credential": "app",
+    "method": "unsigned",
+    "target": "lab/bypass",
+    "expected": "allow",
+    "before": "afc4f108108986e6180d2e74821ee26b8d6ea422",
+    "run_url": "https://github.com/omitsuhashi/github-signing-lab/actions/runs/42589667660",
+    "succeeded": true,
+    "stdout": "",
+    "stderr": "remote: Bypassed rule violations for refs/heads/lab/bypass:        \nremote: \nremote: - Commits must have verified signatures.        \nremote:   Found 1 violation:        \nremote: \nremote:   c5a2a4750f3854dd3030469f3eca46ec79d14e3d        \nremote: \nTo https://github.com/omitsuhashi/github-signing-lab\n   afc4f10..c5a2a47  HEAD -> lab/bypass\n",
+    "attempted_sha": "c5a2a4750f3854dd3030469f3eca46ec79d14e3d",
+    "after": "c5a2a4750f3854dd3030469f3eca46ec79d14e3d",
+    "commit_url": "https://github.com/omitsuhashi/github-signing-lab/commit/c5a2a4750f3854dd3030469f3eca46ec79d14e3d",
+    "verification": {
+      "verified": false,
+      "reason": "unsigned",
+      "verified_at": null
+    },
+    "author": {
+      "name": "Signing Lab",
+      "email": "signing-lab@example.invalid",
+      "date": "2026-11-09T08:57:17Z"
+    },
+    "committer": {
+      "name": "Signing Lab",
+      "email": "signing-lab@example.invalid",
+      "date": "2026-11-09T08:57:17Z"
+    }
+  }
+}

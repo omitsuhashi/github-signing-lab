@@ -1,0 +1,45 @@
+{
+  "run": {
+    "conclusion": "success",
+    "createdAt": "2026-11-09T08:58:29Z",
+    "databaseId": 42589822868,
+    "displayTitle": "app / pr / bypass / expect allow",
+    "headSha": "1b0551f30ae167ca45a5f5aba6d207ffabbf0248",
+    "status": "completed",
+    "url": "https://github.com/omitsuhashi/github-signing-lab/actions/runs/42589822868"
+  },
+  "evidence": {
+    "run_id": "42589822868-1",
+    "credential": "app",
+    "method": "pr",
+    "target": "lab/bypass",
+    "expected": "allow",
+    "before": "c5a2a4750f3854dd3030469f3eca46ec79d14e3d",
+    "run_url": "https://github.com/omitsuhashi/github-signing-lab/actions/runs/42589822868",
+    "pr_number": 1,
+    "pr_url": "https://github.com/omitsuhashi/github-signing-lab/pull/1",
+    "head_sha": "5f310e354e0953d938bf52445845cc6f05b239e2",
+    "merge_sha": "2ae40edb6e73513c10954d5e31f35610c8646a97",
+    "succeeded": true,
+    "stdout": "{\"sha\":\"2ae40edb6e73513c10954d5e31f35610c8646a97\",\"merged\":true,\"message\":\"Pull Request successfully merged\"}",
+    "stderr": "",
+    "attempted_sha": "5f310e354e0953d938bf52445845cc6f05b239e2",
+    "after": "2ae40edb6e73513c10954d5e31f35610c8646a97",
+    "commit_url": "https://github.com/omitsuhashi/github-signing-lab/commit/5f310e354e0953d938bf52445845cc6f05b239e2",
+    "verification": {
+      "verified": false,
+      "reason": "unsigned",
+      "verified_at": null
+    },
+    "author": {
+      "name": "Signing Lab",
+      "email": "signing-lab@example.invalid",
+      "date": "2026-11-09T08:58:37Z"
+    },
+    "committer": {
+      "name": "Signing Lab",
+      "email": "signing-lab@example.invalid",
+      "date": "2026-11-09T08:58:37Z"
+    }
+  }
+}

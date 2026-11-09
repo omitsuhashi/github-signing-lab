@@ -1,0 +1,12 @@
+{
+  "run": {
+    "conclusion": "cancelled",
+    "createdAt": "2026-11-09T08:55:43Z",
+    "databaseId": 42589493598,
+    "displayTitle": "app / contents / signed / expect allow",
+    "headSha": "1b0551f30ae167ca45a5f5aba6d207ffabbf0248",
+    "status": "completed",
+    "url": "https://github.com/omitsuhashi/github-signing-lab/actions/runs/42589493598"
+  },
+  "evidence": null
+}
