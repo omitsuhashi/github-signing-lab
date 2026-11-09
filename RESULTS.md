@@ -110,10 +110,16 @@ main の初期配置・報告用コミットは署名ルールの検証対象外
 - 検証用に付けた App Bypass は両方の Ruleset から除去しました。全署名ルールは Active・Bypass なしです。
 - Actions の App 用秘密鍵 Secret と Client ID Variable は削除しました。
 - Downloads に取得した秘密鍵ファイルは削除しました。
-- App 鍵は1本削除済みです。GitHub UI が「唯一の秘密鍵は削除できない」とするため、残り1本を失効させるための App 自体の削除は確認待ちです。
+- 未使用の1本目の App 鍵を削除後、GitHub UI が「唯一の秘密鍵は削除できない」としたため、ユーザーの承認を得て検証専用 App 自体を削除しました。これで残りの鍵も失効しています。
+- App の削除受付後、元の App 設定 URL が 404 になったことを確認しました。
+- App 削除後にも、App が Contents API / GraphQL で作った2件のコミットは `verification.verified=true` / `reason=valid` のままでした。
 - コミット、PR、Actions ログ、Ruleset、証跡は保存しています。
 
-App の認証情報を削除しているので、App を使った再実行には App 認証の再設定が必要です。GITHUB_TOKEN の署名実験はそのまま実行できます。
+検証専用 App と認証情報を削除しているので、App を使った再実行には新しい App の作成・認証設定が必要です。GITHUB_TOKEN の署名実験はそのまま実行できます。
+
+[後片付けの確認結果](evidence/cleanup-verification.json)
+
+![App 削除の受付画面](evidence/screenshots/21-app-deletion-submitted.jpg)
 
 ## 適用範囲と一次資料
 

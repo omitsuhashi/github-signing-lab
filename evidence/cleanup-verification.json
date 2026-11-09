@@ -1,0 +1,48 @@
+{
+  "checked_at": "2026-11-09T18:06:26.909933+09:00",
+  "app_deleted_ui": true,
+  "app_settings_url": "https://github.com/settings/apps/omitsuhashi-signing-lab-20261109/advanced",
+  "app_settings_ui_result": "Page not found after approved deletion",
+  "unused_first_key_deleted_ui": true,
+  "lab_app_secret_present": false,
+  "lab_app_variable_present": false,
+  "downloaded_key_present": false,
+  "rulesets": [
+    {
+      "id": 26837187,
+      "name": "Require signatures - signed",
+      "enforcement": "active",
+      "bypass_actors": []
+    },
+    {
+      "id": 26837190,
+      "name": "Require signatures - bypass",
+      "enforcement": "active",
+      "bypass_actors": []
+    },
+    {
+      "id": 26837192,
+      "name": "Require signatures - guarded",
+      "enforcement": "active",
+      "bypass_actors": []
+    },
+    {
+      "id": 26837275,
+      "name": "Independent required check - guarded",
+      "enforcement": "active",
+      "bypass_actors": []
+    }
+  ],
+  "app_commits_after_app_deletion": [
+    {
+      "sha": "7e6ccafb9c4ef006322a44cd2d419db3e8096219",
+      "verified": true,
+      "reason": "valid"
+    },
+    {
+      "sha": "fc4b6d136785a47576d9a4c6e9b13527c9ca2a57",
+      "verified": true,
+      "reason": "valid"
+    }
+  ]
+}

@@ -21,3 +21,5 @@ App の権限は Contents / Pull requests の Read & write と必須 Metadata �
 App 用秘密鍵は Actions Secret にのみ登録し、公開リポジトリやログには含めません。
 
 結果とスクリーンショットは `evidence/` に記録します。
+
+検証は完了しています。[実測結果](RESULTS.md)を参照してください。専用 App と鍵は削除済みで、署名 Ruleset は Active・Bypass なしです。App を使う再実行には、新しい App と認証情報の設定が必要です。
