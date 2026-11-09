@@ -1,0 +1,43 @@
+name: Edited files CI
+on:
+  pull_request:
+    branches: [lab/edit-base-20261110]
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+    inputs:
+      expected_sha:
+        description: Exact PR head commit SHA to check
+        required: true
+      pr_number:
+        description: PR number whose head should match
+        required: true
+permissions:
+  contents: read
+  pull-requests: read
+jobs:
+  verify-edited-files:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha || inputs.expected_sha }}
+          persist-credentials: false
+      - name: Verify checked-out SHA and PR head
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EXPECTED_SHA: ${{ github.event.pull_request.head.sha || inputs.expected_sha }}
+          PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
+        run: |
+          python3 - <<'PY'
+          import json, os, re, subprocess
+          expected = os.environ['EXPECTED_SHA']
+          assert re.fullmatch('[0-9a-f]{40}', expected), expected
+          number = int(os.environ['PR_NUMBER'])
+          actual = subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip()
+          pr = json.loads(subprocess.check_output(['gh', 'api', f'repos/{os.environ["GITHUB_REPOSITORY"]}/pulls/{number}'], text=True))
+          assert actual == expected == pr['head']['sha'], (actual, expected, pr['head']['sha'])
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as output:
+              output.write(f'event={os.environ["GITHUB_EVENT_NAME"]}\n\nPR={number}\n\nchecked_sha={actual}\n')
+          PY
+      - name: Assert edited, deleted, renamed and unchanged file contents
+        run: python3 scripts/check-edited-fixtures.py
