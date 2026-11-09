@@ -1,0 +1,46 @@
+{
+  "run": {
+    "conclusion": "success",
+    "createdAt": "2026-11-09T08:14:19Z",
+    "databaseId": 42584480159,
+    "displayTitle": "github_token / graphql / signed / expect allow",
+    "headSha": "afc4f108108986e6180d2e74821ee26b8d6ea422",
+    "status": "completed",
+    "url": "https://github.com/omitsuhashi/github-signing-lab/actions/runs/42584480159"
+  },
+  "evidence": {
+    "run_id": "42584480159-1",
+    "credential": "github_token",
+    "method": "graphql",
+    "target": "lab/signed",
+    "expected": "allow",
+    "before": "cad74bec1556084c65904d3bd6fe807b0169630c",
+    "run_url": "https://github.com/omitsuhashi/github-signing-lab/actions/runs/42584480159",
+    "graphql_signature": {
+      "isValid": true,
+      "wasSignedByGitHub": true,
+      "state": "VALID"
+    },
+    "succeeded": true,
+    "stdout": "{\"data\":{\"createCommitOnBranch\":{\"commit\":{\"oid\":\"83307fa7eac1c3665a8d392c9459912eaec3aee9\",\"signature\":{\"isValid\":true,\"wasSignedByGitHub\":true,\"state\":\"VALID\"}}}}}",
+    "stderr": "",
+    "attempted_sha": "83307fa7eac1c3665a8d392c9459912eaec3aee9",
+    "after": "83307fa7eac1c3665a8d392c9459912eaec3aee9",
+    "commit_url": "https://github.com/omitsuhashi/github-signing-lab/commit/83307fa7eac1c3665a8d392c9459912eaec3aee9",
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "verified_at": "2026-11-09T08:14:26Z"
+    },
+    "author": {
+      "name": "github-actions[bot]",
+      "email": "41898282+github-actions[bot]@users.noreply.github.com",
+      "date": "2026-11-09T08:14:26Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2026-11-09T08:14:26Z"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "run": {
+    "conclusion": "success",
+    "createdAt": "2026-11-09T08:13:47Z",
+    "databaseId": 42584416638,
+    "displayTitle": "github_token / unsigned / signed / expect deny",
+    "headSha": "afc4f108108986e6180d2e74821ee26b8d6ea422",
+    "status": "completed",
+    "url": "https://github.com/omitsuhashi/github-signing-lab/actions/runs/42584416638"
+  },
+  "evidence": {
+    "run_id": "42584416638-1",
+    "credential": "github_token",
+    "method": "unsigned",
+    "target": "lab/signed",
+    "expected": "deny",
+    "before": "afc4f108108986e6180d2e74821ee26b8d6ea422",
+    "run_url": "https://github.com/omitsuhashi/github-signing-lab/actions/runs/42584416638",
+    "succeeded": false,
+    "stdout": "",
+    "stderr": "remote: error: GH013: Repository rule violations found for refs/heads/lab/signed.        \nremote: Review all repository rules at https://github.com/omitsuhashi/github-signing-lab/rules?ref=refs%2Fheads%2Flab%2Fsigned        \nremote: \nremote: - Commits must have verified signatures.        \nremote:   Found 1 violation:        \nremote: \nremote:   d86201b0368af8e03f4881f4a0f9063ae4f65dde        \nremote: \nTo https://github.com/omitsuhashi/github-signing-lab\n ! [remote rejected] HEAD -> lab/signed (push declined due to repository rule violations)\nerror: failed to push some refs to 'https://github.com/omitsuhashi/github-signing-lab'\n",
+    "attempted_sha": "d86201b0368af8e03f4881f4a0f9063ae4f65dde",
+    "after": "afc4f108108986e6180d2e74821ee26b8d6ea422"
+  }
+}
