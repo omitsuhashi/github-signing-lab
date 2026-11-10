@@ -50,6 +50,15 @@ ghcommit --repository "$GITHUB_REPOSITORY" --branch "$BRANCH" \
 両方式ともコミット後に git push せず、PR を作り、source branch を ref として共通 CI を明示 dispatch します。
 CI は checkout / 入力 SHA / PR head / run SHA の一致と編集結果を検査します。生成側の緑だけでは CI の合格にはなりません。
 
+## 確認済みの実行（2026-11-10）
+
+[生成側 success](https://github.com/omitsuhashi/github-signing-lab/actions/runs/42734455420) →
+[Verified コミット](https://github.com/omitsuhashi/github-signing-lab/commit/2dba9d25c3fc4513efc885fbbdd0ce5eecae1851) →
+[PR #11](https://github.com/omitsuhashi/github-signing-lab/pull/11) →
+[共通 CI success](https://github.com/omitsuhashi/github-signing-lab/actions/runs/42734486326) まで実行しました。
+編集・削除・名前変更は1コミットで、CI の検査 SHA は PR head と一致。main の初期ダミーは維持しました。
+公式の Mac バイナリ＋ダミー token＋ローカル模擬 API でも、未ステージの作業内容を送ること、HEAD/index 不変、API エラーと欠損ファイル時の失敗を確認しました。
+
 ## インストールと範囲
 
 workflow は公式の **v0.1.78 / Linux amd64** を取得し、リリース資産の SHA-256 を固定値と照合してから実行します。

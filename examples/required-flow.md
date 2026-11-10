@@ -41,3 +41,4 @@ GITHUB_TOKEN による PR のイベント CI は承認待ちになり得るの�
 署名成功は、PR レビューや必須チェックを免除しません。ダミー PR は main にマージせず、確認後に close します。
 
 詳細・出典は [自作版](graphql/README.md) と [ghcommit 版](ghcommit/README.md)。
+両方式とも署名コミット → PR → CI 成功まで実行済みで、各 README に確認済みの実行リンクを残しています。

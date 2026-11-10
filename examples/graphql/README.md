@@ -141,7 +141,7 @@ GITHUB_TOKEN="$GH_TOKEN" ghcommit -r "$GITHUB_REPOSITORY" -b "$BRANCH" -m "Updat
 
 create-pull-request の bot 署名は GITHUB_TOKEN / GitHub App token が対象で、PAT ではこの bot 署名にならないという制約があります。
 どちらの既存ツールでも、CI の起動条件は別です。GITHUB_TOKEN で PR を作っただけで、他の CI が必ず無人起動するとは扱いません。
-このページの本体は自作 Python のままです。ghcommit は [別サンプル](../ghcommit/README.md)で実行・比較します。create-pull-request Action は公式資料の確認のみで、実行していません。
+このページの本体は自作 Python のままです。ghcommit は [別サンプル](../ghcommit/README.md)で署名コミット・PR・CI 成功まで実行済みです。create-pull-request Action は公式資料の確認のみで、実行していません。
 
 ## 範囲
 
