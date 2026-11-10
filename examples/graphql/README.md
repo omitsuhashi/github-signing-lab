@@ -58,6 +58,7 @@ YAML では生成側に次の権限を付け、`GH_TOKEN: ${{ github.token }}` �
 
 作成する `sample/graphql-RUN_ID-ATTEMPT` は毎回別の作業ブランチです。main と過去の実験ブランチは更新しません。
 **main から新しく Run workflow** すれば毎回初期ダミーから始められます。
+生成 PR は検証専用です。main の初期ダミーを保つためマージせず、確認後に close してください。
 
 編集用 Python が行うこと：config.json の timeout を30→60に変更、obsolete.txt を削除、before.txt を after.txt に名前変更。
 コミット側には特定のファイル名や編集値を埋め込んでいないので、編集用 Python を別の生成・整形処理に差し替えられます。
@@ -85,6 +86,15 @@ CI workflow には workflow_dispatch だけを設定し、PR イベントとの�
 生成側の緑は「CI 起動要求まで成功」であり、CI 自体の成功は別の実行で確認します。後で PR を編集してもこの CI は自動再実行されません。
 [起動条件の公式仕様](https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/trigger-a-workflow)、
 [gh pr create](https://cli.github.com/manual/gh_pr_create)、[gh workflow run](https://cli.github.com/manual/gh_workflow_run)。
+
+### 確認済みの実行（2026-11-10）
+
+[生成側](https://github.com/omitsuhashi/github-signing-lab/actions/runs/42732388471) →
+[Verified コミット](https://github.com/omitsuhashi/github-signing-lab/commit/f44d42965839fdbe4fb87a35e819951223526ec3) →
+[PR #8](https://github.com/omitsuhashi/github-signing-lab/pull/8) →
+[CI success](https://github.com/omitsuhashi/github-signing-lab/actions/runs/42732415567) まで実行しました。CI の検査 SHA は PR head と同一です。
+REST Checks API でも同じ SHA の check-files=success と PR #8 への関連を確認しましたが、`gh pr checks` の集約表示は空でした。
+この実測では Actions の実行結果と検査 SHA を合否の根拠にしています。必須チェックによるマージ可否を確認したものではありません。
 
 ## コミット用 Python の中身
 
