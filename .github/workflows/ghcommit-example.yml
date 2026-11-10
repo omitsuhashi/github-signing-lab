@@ -1,0 +1,61 @@
+name: Minimal ghcommit PR and CI
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+jobs:
+  example:
+    runs-on: ubuntu-24.04
+    env:
+      GH_TOKEN: ${{ github.token }}
+      BRANCH: sample/ghcommit-${{ github.run_id }}-${{ github.run_attempt }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - name: Install ghcommit v0.1.78
+        run: |
+          mkdir -p "$RUNNER_TEMP/ghcommit-bin"
+          curl -fsSL https://github.com/planetscale/ghcommit/releases/download/v0.1.78/ghcommit_linux_amd64 \
+            -o "$RUNNER_TEMP/ghcommit-bin/ghcommit"
+          echo "97b1db204e334a9cc90c7b1d522cc3a9dca8c7b4ca1837862f1e8b77de04807e  $RUNNER_TEMP/ghcommit-bin/ghcommit" | sha256sum --check
+          chmod +x "$RUNNER_TEMP/ghcommit-bin/ghcommit"
+          echo "$RUNNER_TEMP/ghcommit-bin" >> "$GITHUB_PATH"
+      - name: Create a remote work branch at the checked-out HEAD
+        run: |
+          gh api "repos/$GITHUB_REPOSITORY/git/refs" \
+            -f ref="refs/heads/$BRANCH" -f sha="$(git rev-parse HEAD)"
+      - name: Edit files locally
+        run: python3 scripts/edit-graphql-example.py
+      - name: Commit with ghcommit and verify the signature
+        id: commit
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_GRAPHQL_URL: ${{ github.graphql_url }}
+        # shortcut: fixed dummy paths; add scoped file detection if generated paths vary.
+        run: |
+          ghcommit --repository "$GITHUB_REPOSITORY" --branch "$BRANCH" \
+            --sha "$(git rev-parse HEAD)" --message "Update dummy files with ghcommit" \
+            --add examples/graphql/files/config.json --add examples/graphql/files/after.txt \
+            --delete examples/graphql/files/obsolete.txt --delete examples/graphql/files/before.txt
+          SHA=$(gh api "repos/$GITHUB_REPOSITORY/git/ref/heads/$BRANCH" --jq '.object.sha')
+          gh api "repos/$GITHUB_REPOSITORY/commits/$SHA" \
+            --jq '.commit.verification | .verified and (.reason == "valid")' | grep -qx true
+          printf 'commit_sha=%s\n' "$SHA" >> "$GITHUB_OUTPUT"
+          printf 'Verified commit: https://github.com/%s/commit/%s\n' "$GITHUB_REPOSITORY" "$SHA" >> "$GITHUB_STEP_SUMMARY"
+      - name: Create PR
+        id: pr
+        run: |
+          PR_URL=$(gh pr create --repo "$GITHUB_REPOSITORY" --base main --head "$BRANCH" \
+            --title "Dummy ghcommit update $GITHUB_RUN_ID" --body "Dummy-only ghcommit example. Do not merge: main keeps the initial dummy files for repeatable runs.")
+          printf 'number=%s\n' "${PR_URL##*/}" >> "$GITHUB_OUTPUT"
+          printf 'PR: %s\n' "$PR_URL" >> "$GITHUB_STEP_SUMMARY"
+      - name: Start the shared CI on the PR head
+        env:
+          COMMIT_SHA: ${{ steps.commit.outputs.commit_sha }}
+          PR_NUMBER: ${{ steps.pr.outputs.number }}
+        run: |
+          gh workflow run graphql-example-ci.yml --repo "$GITHUB_REPOSITORY" --ref "$BRANCH" \
+            -f expected_sha="$COMMIT_SHA" -f pr_number="$PR_NUMBER"

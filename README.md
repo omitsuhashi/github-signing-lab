@@ -4,10 +4,14 @@
 
 ## 最小サンプルから始める
 
+[まず必要な流れを確認する](examples/required-flow.md)：準備 → 編集 → 対象選択 → 署名コミット・リモート更新 → PR → CI。
+
 [GraphQL で git commit / git push を置き換える例](examples/graphql/README.md)を用意しています。
 ファイル編集用 Python と API コミット用 Python を分け、Actions から手動実行できます。
 署名コミットの後に標準 gh コマンドで PR を作成し、その PR head を検査する CI まで明示起動します。
 自作スクリプト以外の既存 CLI / Action についてもサンプルの README に記載しています。
+
+[ghcommit を使う例](examples/ghcommit/README.md)も実行できます。同じ編集用 Python と CI を使い、JSON の組み立てを既存 CLI に任せます。
 
 ## 過去の比較実験
 
@@ -21,7 +25,7 @@
 
 上記の比較は `lab/signed`、`lab/bypass`、`lab/guarded` が対象です。
 追加の **Edit files and create PR** / **Edited files CI** は `lab/edit-*` と `lab/unsigned-contents-*` を使った既存ファイル・PR・CIの検証です。
-最小サンプルは `sample/graphql-*` を使います。`main` は手順・検証コード・初期ダミーの保存用です。
+最小サンプルは `sample/graphql-*` / `sample/ghcommit-*` を使います。`main` は手順・検証コード・初期ダミーの保存用です。
 生成側は手動実行で、Edited files CI は検証用 base 向けの PR と手動 dispatch で動きます。
 
 各実行は期待した成功・拒否を assert し、コミットの署名、前後のブランチ SHA、拒否理由を実行サマリーに残します。
