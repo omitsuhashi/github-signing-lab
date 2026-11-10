@@ -13,6 +13,8 @@
 
 [ghcommit を使う例](examples/ghcommit/README.md)も実行できます。同じ編集用 Python と CI を使い、JSON の組み立てを既存 CLI に任せます。
 
+[GitHub App・Actions・Bypass の関係](examples/github-app-bypass.md)：App は認証・権限の登録情報、runner が処理を実行し、GitHub が Bypass を判定する流れを説明しています。
+
 ## 過去の比較実験
 
 手動の **Commit signing lab** Actions で以下を比較します。
