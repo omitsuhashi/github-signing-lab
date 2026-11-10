@@ -30,7 +30,7 @@ jobs:
         id: pr
         run: |
           PR_URL=$(gh pr create --repo "$GITHUB_REPOSITORY" --base main --head "$BRANCH" \
-            --title "Dummy GraphQL update $GITHUB_RUN_ID" --body "Dummy-only example: edit, signed commit, PR, then CI.")
+            --title "Dummy GraphQL update $GITHUB_RUN_ID" --body "Dummy-only example: edit, signed commit, PR, then CI. Do not merge: main keeps the initial dummy files for repeatable runs.")
           printf 'number=%s\n' "${PR_URL##*/}" >> "$GITHUB_OUTPUT"
           printf 'PR: %s\n' "$PR_URL" >> "$GITHUB_STEP_SUMMARY"
       - name: Start CI on the PR head
