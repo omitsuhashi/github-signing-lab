@@ -3,6 +3,8 @@ on:
   workflow_dispatch:
 permissions:
   contents: write
+  pull-requests: write
+  actions: write
 jobs:
   example:
     runs-on: ubuntu-24.04
@@ -22,4 +24,19 @@ jobs:
       - name: Stage the intended changes
         run: git add -A -- examples/graphql/files
       - name: Replace git commit and git push
+        id: commit
         run: python3 scripts/commit-with-graphql.py "$BRANCH" "Update dummy files through GraphQL"
+      - name: Create PR
+        id: pr
+        run: |
+          PR_URL=$(gh pr create --repo "$GITHUB_REPOSITORY" --base main --head "$BRANCH" \
+            --title "Dummy GraphQL update $GITHUB_RUN_ID" --body "Dummy-only example: edit, signed commit, PR, then CI.")
+          printf 'number=%s\n' "${PR_URL##*/}" >> "$GITHUB_OUTPUT"
+          printf 'PR: %s\n' "$PR_URL" >> "$GITHUB_STEP_SUMMARY"
+      - name: Start CI on the PR head
+        env:
+          COMMIT_SHA: ${{ steps.commit.outputs.commit_sha }}
+          PR_NUMBER: ${{ steps.pr.outputs.number }}
+        run: |
+          gh workflow run graphql-example-ci.yml --repo "$GITHUB_REPOSITORY" --ref "$BRANCH" \
+            -f expected_sha="$COMMIT_SHA" -f pr_number="$PR_NUMBER"

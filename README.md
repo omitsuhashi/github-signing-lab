@@ -6,6 +6,8 @@
 
 [GraphQL で git commit / git push を置き換える例](examples/graphql/README.md)を用意しています。
 ファイル編集用 Python と API コミット用 Python を分け、Actions から手動実行できます。
+署名コミットの後に標準 gh コマンドで PR を作成し、その PR head を検査する CI まで明示起動します。
+自作スクリプト以外の既存 CLI / Action についてもサンプルの README に記載しています。
 
 ## 過去の比較実験
 

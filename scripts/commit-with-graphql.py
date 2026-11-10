@@ -58,6 +58,9 @@ def main():
                     additions=[f['path'] for f in files['additions']],
                     deletions=[f['path'] for f in files['deletions']])
     print(json.dumps(evidence, indent=2))
+    if os.environ.get('GITHUB_OUTPUT'):
+        with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+            output.write(f'commit_sha={commit["oid"]}\n')
     if os.environ.get('GITHUB_STEP_SUMMARY'):
         with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as output:
             output.write('## GraphQL signed commit\n\n```json\n' + json.dumps(evidence, indent=2) + '\n```\n')
