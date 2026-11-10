@@ -1,0 +1,47 @@
+name: Minimal GraphQL CI
+on:
+  workflow_dispatch:
+    inputs:
+      expected_sha:
+        description: Exact PR head SHA to check
+        required: true
+      pr_number:
+        description: PR whose head should match
+        required: true
+permissions:
+  contents: read
+  pull-requests: read
+jobs:
+  check-files:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ inputs.expected_sha }}
+          persist-credentials: false
+      - name: Check the exact PR head and edited files
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EXPECTED_SHA: ${{ inputs.expected_sha }}
+          PR_NUMBER: ${{ inputs.pr_number }}
+        run: |
+          python3 - <<'PY'
+          import json, os, re, subprocess
+          from pathlib import Path
+          expected = os.environ['EXPECTED_SHA']
+          assert re.fullmatch('[0-9a-f]{40}', expected)
+          number = int(os.environ['PR_NUMBER'])
+          repo = os.environ['GITHUB_REPOSITORY']
+          actual = subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip()
+          pr = json.loads(subprocess.check_output(['gh', 'api', f'repos/{repo}/pulls/{number}'], text=True))
+          assert pr['head']['repo']['full_name'] == repo and pr['base']['ref'] == 'main'
+          assert actual == expected == pr['head']['sha'] == os.environ['GITHUB_SHA']
+          files = Path('examples/graphql/files')
+          assert {p.name for p in files.iterdir()} == {'config.json', 'after.txt'}
+          assert json.loads((files / 'config.json').read_text()) == {'timeout': 60, 'label': 'dummy-only'}
+          assert (files / 'after.txt').read_bytes() == b'Dummy rename example. Keep these bytes unchanged.\n'
+          evidence = dict(pr_url=pr['html_url'], checked_sha=actual, event=os.environ['GITHUB_EVENT_NAME'])
+          print(json.dumps(evidence, indent=2))
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as output:
+              output.write('## CI passed\n\n```json\n' + json.dumps(evidence, indent=2) + '\n```\n')
+          PY

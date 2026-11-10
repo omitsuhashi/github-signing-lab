@@ -58,13 +58,14 @@ with tempfile.TemporaryDirectory() as folder, contextlib.chdir(folder):
         assert path == 'repos/test/dummy/git/ref/heads/sample/test'
         return dict(object=dict(sha=sha))
 
-    with patch.dict(os.environ, {'GITHUB_REPOSITORY': 'test/dummy'}), \
+    with patch.dict(os.environ, {'GITHUB_REPOSITORY': 'test/dummy', 'GITHUB_OUTPUT': str(Path(folder) / 'outputs')}), \
          patch.object(sys, 'argv', ['commit-with-graphql.py', 'sample/test', 'Dummy update']), \
          patch.object(publisher, 'api', side_effect=api) as request, \
          patch.object(publisher, 'read', side_effect=read), contextlib.redirect_stdout(io.StringIO()):
         os.environ.pop('GITHUB_STEP_SUMMARY', None)
         publisher.main()
         assert request.call_count == 1
+        assert Path('outputs').read_text() == f'commit_sha={sha}\n'
         assert git('rev-parse', 'HEAD') == head
         assert Path('edit.txt').read_bytes() == b'UNSTAGED must not be published\n'
         with patch.object(publisher, 'api', return_value=SimpleNamespace(stdout='{"errors":[{"message":"stale head"}]}')):
@@ -78,6 +79,7 @@ with tempfile.TemporaryDirectory() as folder, contextlib.chdir(folder):
         request.reset_mock()
         publisher.main()
         request.assert_not_called()
+        assert Path('outputs').read_text() == f'commit_sha={sha}\n'
         git('add', 'edit.txt')
         git('update-index', '--chmod=+x', 'edit.txt')
         try:
