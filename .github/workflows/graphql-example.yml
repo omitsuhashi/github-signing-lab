@@ -1,0 +1,25 @@
+name: Minimal GraphQL signed commit
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  example:
+    runs-on: ubuntu-24.04
+    env:
+      GH_TOKEN: ${{ github.token }}
+      BRANCH: sample/graphql-${{ github.run_id }}-${{ github.run_attempt }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - name: Create a remote work branch at the checked-out HEAD
+        run: |
+          gh api "repos/$GITHUB_REPOSITORY/git/refs" \
+            -f ref="refs/heads/$BRANCH" -f sha="$(git rev-parse HEAD)"
+      - name: Edit files locally
+        run: python3 scripts/edit-graphql-example.py
+      - name: Stage the intended changes
+        run: git add -A -- examples/graphql/files
+      - name: Replace git commit and git push
+        run: python3 scripts/commit-with-graphql.py "$BRANCH" "Update dummy files through GraphQL"
