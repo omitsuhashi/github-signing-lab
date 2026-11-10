@@ -2,6 +2,7 @@
 
 Actions 内でファイルを編集し、**署名付きコミット → ブランチ更新 → PR 作成 → CI 起動**まで行う例です。
 GITHUB_TOKEN を使い、GPG 秘密鍵・専用 App・追加の Python パッケージは用意しません。
+[必要な流れの一覧](../required-flow.md)と、JSON の自作を省く [ghcommit 版](../ghcommit/README.md)も参照できます。
 
 ## 構成
 
@@ -140,7 +141,7 @@ GITHUB_TOKEN="$GH_TOKEN" ghcommit -r "$GITHUB_REPOSITORY" -b "$BRANCH" -m "Updat
 
 create-pull-request の bot 署名は GITHUB_TOKEN / GitHub App token が対象で、PAT ではこの bot 署名にならないという制約があります。
 どちらの既存ツールでも、CI の起動条件は別です。GITHUB_TOKEN で PR を作っただけで、他の CI が必ず無人起動するとは扱いません。
-**今回は既存ツールの公式 README の確認のみで、インストール・実行比較はしていません。** 学習用の本体は自作 Python のままにし、外部依存を増やしていません。
+このページの本体は自作 Python のままです。ghcommit は [別サンプル](../ghcommit/README.md)で実行・比較します。create-pull-request Action は公式資料の確認のみで、実行していません。
 
 ## 範囲
 
